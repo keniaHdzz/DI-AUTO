@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIAUTO - Servicios</title>
+    <style>
+        body {
+            font-family: Cambria, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #2E4053;
+            color: #F4F6F6;
+            padding: 1em 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header img {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        nav {
+            text-align: center;
+            margin: 1em 0;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #2E4053;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #007bff;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 2em;
+        }
+        .service {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 30%;
+            margin: 1em 0;
+            padding: 1em;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .service input {
+            margin-right: 10px;
+        }
+        .service label {
+            font-weight: bold;
+        }
+        .payment-method {
+            display: none;
+            margin-top: 2em;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .payment-details {
+            display: none;
+            margin-top: 1em;
+            background-color: #fff;
+            padding: 1em;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #2E4053;
+            color: #F4F6F6;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 1em;
+        }
+        button:hover {
+            background-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="ruta/a/tu/imagen.jpg" alt="Logo DIAUTO">
+        <h1>DIAUTO</h1>
+        <p>Tu taller mecánico de confianza</p>
+    </header>
+    <nav>
+        <a href="#services">Servicios</a>
+        <a href="#confirm-purchase">Confirmar Compra</a>
+    </nav>
+    <div class="container">
+        <section id="services" class="services">
+            <h2>Servicios</h2>
+            <div class="service">
+                <input type="checkbox" id="service1" value="200">
+                <label for="service1">Cambio de Aceite - $200 MXN</label>
+            </div>
+            <div class="service">
+                <input type="checkbox" id="service2" value="300">
+                <label for="service2">Alineación y Balanceo - $300 MXN</label>
+            </div>
+            <div class="service">
+                <input type="checkbox" id="service3" value="400">
+                <label for="service3">Reparación de Frenos - $400 MXN</label>
+            </div>
+            <div class="service">
+                <input type="checkbox" id="service4" value="500">
+                <label for="service4">Reparación de Motores - $500 MXN</label>
+            </div>
+            <div class="service">
+                <input type="checkbox" id="service5" value="250">
+                <label for="service5">Chequeo con Scanner - $250 MXN</label>
+            </div>
+            <button onclick="goToConfirmPurchase()">Confirmar Selección</button>
+        </section>
+        <section id="confirm-purchase" class="payment-method">
+            <h2>Selecciona el método de pago:</h2>
+            <input type="radio" name="payment" id="payment-cash" value="efectivo" onclick="togglePaymentDetails()">
+            <label for="payment-cash">Efectivo</label><br>
+            <input type="radio" name="payment" id="payment-transfer" value="transferencia" onclick="togglePaymentDetails()">
+            <label for="payment-transfer">Transferencia</label><br>
+            <input type="radio" name="payment" id="payment-deposit" value="deposito" onclick="togglePaymentDetails()">
+            <label for="payment-deposit">Depósito</label><br><br>
+            <div id="transfer-details" class="payment-details">
+                <h3>Datos para Transferencia:</h3>
+                <p>Banco: BBVA</p>
+                <p>Cuenta: 1234567890</p>
+                <p>CLABE: 012345678901234567</p>
+            </div>
+            <div id="deposit-details" class="payment-details">
+                <h3>Datos para Depósito:</h3>
+                <p>Banco: Santander</p>
+                <p>Cuenta: 0987654321</p>
+                <p>CLABE: 765432109876543210</p>
+            </div>
+            <button onclick="sendToWhatsApp()">Enviar Comprobante por WhatsApp</button>
+            <button onclick="goBackToServices()">Regresar a Servicios</button>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2024 DIAUTO. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function goToConfirmPurchase() {
+            // Ocultar la sección de servicios
+            document.getElementById('services').style.display = 'none';
+
+            // Mostrar la sección de confirmar compra
+            document.getElementById('confirm-purchase').style.display = 'block';
+
+            // Scroll hacia la sección de confirmar compra
+            document.getElementById('confirm-purchase').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function goBackToServices() {
+            // Ocultar la sección de confirmar compra
+            document.getElementById('confirm-purchase').style.display = 'none';
+
+            // Mostrar la sección de servicios
+            document.getElementById('services').style.display = 'flex';
+
+            // Scroll hacia la sección de servicios
+            document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function togglePaymentDetails() {
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            const transferDetails = document.getElementById('transfer-details');
+            const depositDetails = document.getElementById('deposit-details');
+
+            transferDetails.style.display = 'none';
+            depositDetails.style.display = 'none';
+
+            if (paymentMethod === 'transferencia') {
+                transferDetails.style.display = 'block';
+            } else if (paymentMethod === 'deposito') {
+                depositDetails.style.display = 'block';
+            }
+        }
+
+        function sendToWhatsApp() {
+            const paymentMethod = document.querySelector('input[name="payment"]:checked');
+            if (!paymentMethod) {
+                alert('Selecciona un método de pago antes de enviar el comprobante.');
+                return;
+            }
+
+            const total = calculateTotal();
+            const method = paymentMethod.value === 'efectivo' ? 'Efectivo' : (paymentMethod.value === 'transferencia' ? 'Transferencia' : 'Depósito');
+
+            const message = `Total a pagar: ${total} MXN\nMétodo de pago: ${method}`;
+
+            const url = `https://wa.me/528991192136?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function calculateTotal() {
+            let total = 0;
+            const services = document.querySelectorAll('.service input[type="checkbox"]:checked');
+            services.forEach(service => {
+                total += parseFloat(service.value);
+            });
+            return total;
+        }
+    </script>
+</body>
+</html>
+
+
+
